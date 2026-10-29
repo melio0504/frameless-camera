@@ -35,5 +35,8 @@ build:
 run: $(TARGET)
 	./$(TARGET)
 
+appimage:
+	./packaging/build-appimage.sh
+
 clean:
 	$(RM) $(OBJECTS) $(TARGET)
