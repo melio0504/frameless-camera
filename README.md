@@ -3,6 +3,8 @@
 A tiny, mirrored camera preview I built for myself. The window has no title bar,
 toolbar, buttons, or other visible interface.
 
+![Frameless Camera running as a movable webcam overlay](asset/screenshot.png)
+
 ## Why I made this
 
 I made this app because I wanted a webcam window that I could freely move and
