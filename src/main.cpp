@@ -17,4 +17,13 @@
 
 namespace {
 
+// this margin defines the draggable resize area along each window edge
+constexpr int kResizeMargin = 8;
+
+// inheriting from qgraphicsview lets the window display a graphics scene
+// while also receiving the mouse and resize events needed by a frameless window
+class CameraWindow final : public QGraphicsView {
+public:
+protected:
+private:
 }
