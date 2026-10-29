@@ -26,6 +26,9 @@ class CameraWindow final : public QGraphicsView {
 public:
 protected:
 private:
+
+} // namespace
+
 int main(int argc, char *argv[]) {
   // every qt widgets program needs one application object
   QApplication application(argc, argv);
