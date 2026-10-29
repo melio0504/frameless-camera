@@ -30,6 +30,31 @@ make
 
 You can also build and launch it in one step with `make run`.
 
+## Build a portable AppImage
+
+```sh
+make appimage
+```
+
+This downloads the official `linuxdeploy` and Qt deployment tools into the
+ignored `build/appimage-tools/` directory, bundles the executable with its Qt
+libraries and plugins, and creates:
+
+```text
+dist/frameless-camera-x86_64.AppImage
+```
+
+The resulting file can be moved and launched directly on compatible x86-64
+Linux systems:
+
+```sh
+chmod +x dist/frameless-camera-x86_64.AppImage
+./dist/frameless-camera-x86_64.AppImage
+```
+
+An AppImage built on a newer Linux system may not run on substantially older
+distributions because core system libraries such as glibc are not bundled.
+
 ## Controls
 
 - Drag anywhere away from an edge to move the window.
