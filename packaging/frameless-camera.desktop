@@ -5,11 +5,11 @@ Comment=Minimal mirrored camera preview
 # Replace this with the absolute path to your AppImage.
 # Common installation locations include /opt and ~/.local/bin.
 # I prefer /opt tho~
-Exec=/opt/frameless-camera/frameless-camera-x86_64.AppImage
+Exec=frameless-camera
 
 # Replace this with the absolute path to the SVG icon.
 # Keeping the AppImage and icon in the same directory is recommended.
-Icon=/opt/frameless-camera/frameless-camera.svg
+Icon=frameless-camera
 Terminal=false
 Categories=AudioVideo;Video;
 Keywords=camera;webcam;preview;
