@@ -139,6 +139,64 @@ protected:
   }
 
 private:
+  void updateVideoTransform() {
+    // there is nothing to scale until both the video and viewport have a size
+    if (videoItem_->boundingRect().isEmpty() || viewport()->size().isEmpty()) {
+      return;
+    }
+
+    resetTransform();
+    fitInView(videoItem_, Qt::KeepAspectRatioByExpanding);
+
+    // mirror horizontally so the preview behaves like a mirror
+    scale(-1.0, 1.0);
+    centerOn(videoItem_);
+  }
+
+  [[nodiscard]] Qt::Edges resizeEdgesAt(const QPoint &position) const {
+    // combine horizontal and vertical edges to identify sides and corners
+    Qt::Edges edges;
+
+    if (position.x() <= kResizeMargin) {
+      edges |= Qt::LeftEdge;
+    } else if (position.x() >= viewport()->width() - kResizeMargin) {
+      edges |= Qt::RightEdge;
+    }
+
+    if (position.y() <= kResizeMargin) {
+      edges |= Qt::TopEdge;
+    } else if (position.y() >= viewport()->height() - kResizeMargin) {
+      edges |= Qt::BottomEdge;
+    }
+
+    return edges;
+  }
+
+  void updateResizeCursor(Qt::Edges edges) {
+    // use the cursor shape that matches the detected edge or corner
+    if (edges == (Qt::TopEdge | Qt::LeftEdge) ||
+        edges == (Qt::BottomEdge | Qt::RightEdge)) {
+      viewport()->setCursor(Qt::SizeFDiagCursor);
+    } else if (edges == (Qt::TopEdge | Qt::RightEdge) ||
+               edges == (Qt::BottomEdge | Qt::LeftEdge)) {
+      viewport()->setCursor(Qt::SizeBDiagCursor);
+    } else if (edges.testFlag(Qt::LeftEdge) || edges.testFlag(Qt::RightEdge)) {
+      viewport()->setCursor(Qt::SizeHorCursor);
+    } else if (edges.testFlag(Qt::TopEdge) || edges.testFlag(Qt::BottomEdge)) {
+      viewport()->setCursor(Qt::SizeVerCursor);
+    } else {
+      viewport()->unsetCursor();
+    }
+  }
+
+  // these members keep the camera pipeline and graphics scene alive
+  QCamera camera_;
+  QGraphicsScene scene_;
+  QMediaCaptureSession captureSession_;
+  QGraphicsVideoItem *videoItem_;
+  bool dragging_ = false;
+  QPoint dragOffset_;
+};
 
 } // namespace
 
