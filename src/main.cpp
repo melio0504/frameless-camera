@@ -73,6 +73,12 @@ public:
   }
 
 protected:
+  void resizeEvent(QResizeEvent *event) override {
+    // let qt resize the view first, then refit the video to the new dimensions
+    QGraphicsView::resizeEvent(event);
+    updateVideoTransform();
+  }
+
 private:
 
 } // namespace
