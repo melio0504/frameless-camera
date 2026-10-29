@@ -26,4 +26,21 @@ class CameraWindow final : public QGraphicsView {
 public:
 protected:
 private:
+int main(int argc, char *argv[]) {
+  // every qt widgets program needs one application object
+  QApplication application(argc, argv);
+  QApplication::setApplicationName(QStringLiteral("frameless-camera"));
+
+  // select the default camera and stop early if the system has no camera
+  const QCameraDevice device = QMediaDevices::defaultVideoInput();
+  if (device.isNull()) {
+    qCritical("No camera was found.");
+    return 1;
+  }
+
+  // create the camera window and enter qt's event loop
+  CameraWindow window(device);
+  window.show();
+
+  return application.exec();
 }
