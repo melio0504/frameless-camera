@@ -201,6 +201,16 @@ private:
 } // namespace
 
 int main(int argc, char *argv[]) {
+  // this application only previews camera frames; it never decodes media files
+  // or encodes video.  Prevent Qt's FFmpeg backend from probing hardware codec
+  // devices, which can otherwise load a large Vulkan/LLVM driver stack.
+  if (!qEnvironmentVariableIsSet("QT_FFMPEG_DECODING_HW_DEVICE_TYPES")) {
+    qputenv("QT_FFMPEG_DECODING_HW_DEVICE_TYPES", QByteArray{});
+  }
+  if (!qEnvironmentVariableIsSet("QT_FFMPEG_ENCODING_HW_DEVICE_TYPES")) {
+    qputenv("QT_FFMPEG_ENCODING_HW_DEVICE_TYPES", QByteArray{});
+  }
+
   // every qt widgets program needs one application object
   QApplication application(argc, argv);
   QApplication::setApplicationName(QStringLiteral("frameless-camera"));
