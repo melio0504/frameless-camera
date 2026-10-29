@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Frameless Camera
+Comment=Minimal mirrored camera preview
+Exec=frameless-camera
+Icon=frameless-camera
+Terminal=false
+Categories=AudioVideo;Video;
+Keywords=camera;webcam;preview;

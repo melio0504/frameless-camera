@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="background" x1="32" y1="24" x2="224" y2="232" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#383c4a"/>
+      <stop offset="1" stop-color="#17191f"/>
+    </linearGradient>
+    <linearGradient id="lens" x1="91" y1="84" x2="170" y2="174" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#72d6ff"/>
+      <stop offset="1" stop-color="#536dfe"/>
+    </linearGradient>
+  </defs>
+  <rect x="16" y="16" width="224" height="224" rx="48" fill="url(#background)"/>
+  <path d="M61 76h29l12-18h52l12 18h29c14 0 25 11 25 25v76c0 14-11 25-25 25H61c-14 0-25-11-25-25v-76c0-14 11-25 25-25Z" fill="#f4f6fb"/>
+  <circle cx="128" cy="139" r="50" fill="#262a35"/>
+  <circle cx="128" cy="139" r="37" fill="url(#lens)"/>
+  <circle cx="116" cy="125" r="10" fill="#d8f5ff" opacity=".8"/>
+  <circle cx="190" cy="101" r="7" fill="#ff6b6b"/>
+</svg>
