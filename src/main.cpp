@@ -79,6 +79,65 @@ protected:
     updateVideoTransform();
   }
 
+  void mousePressEvent(QMouseEvent *event) override {
+    // only the left mouse button starts window movement or resizing
+    if (event->button() != Qt::LeftButton) {
+      QGraphicsView::mousePressEvent(event);
+      return;
+    }
+
+    const Qt::Edges edges = resizeEdgesAt(event->position().toPoint());
+    QWindow *nativeWindow = windowHandle();
+
+    // ask the desktop compositor to resize when an edge or corner is pressed
+    if (nativeWindow != nullptr && edges != Qt::Edges{} &&
+        nativeWindow->startSystemResize(edges)) {
+      event->accept();
+      return;
+    }
+
+    // otherwise, ask the compositor to move the entire window
+    if (nativeWindow != nullptr && nativeWindow->startSystemMove()) {
+      event->accept();
+      return;
+    }
+
+    // fall back to manual movement when the window manager cannot move it
+    dragging_ = true;
+    dragOffset_ = event->globalPosition().toPoint() - frameGeometry().topLeft();
+    event->accept();
+  }
+
+  void mouseMoveEvent(QMouseEvent *event) override {
+    // manual dragging is only used when native system movement is unavailable
+    if (dragging_ && (event->buttons() & Qt::LeftButton)) {
+      move(event->globalPosition().toPoint() - dragOffset_);
+      event->accept();
+      return;
+    }
+
+    // show a directional cursor when the pointer is near a resize edge
+    updateResizeCursor(resizeEdgesAt(event->position().toPoint()));
+    event->accept();
+  }
+
+  void mouseReleaseEvent(QMouseEvent *event) override {
+    if (event->button() == Qt::LeftButton) {
+      dragging_ = false;
+      event->accept();
+      return;
+    }
+
+    QGraphicsView::mouseReleaseEvent(event);
+  }
+
+  void leaveEvent(QEvent *event) override {
+    if (!dragging_) {
+      viewport()->unsetCursor();
+    }
+    QGraphicsView::leaveEvent(event);
+  }
+
 private:
 
 } // namespace
