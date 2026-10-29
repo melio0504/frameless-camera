@@ -14,6 +14,14 @@ recording. I also made it to learn more about developing applications in C++
 with Qt. I use GNOME's built-in option to toggle whether the window appears on
 all workspaces or only one.
 
+## Resource usage
+
+The compiled executable is about 44 KB on my system and uses around 84 MB of
+RAM while displaying the camera preview. The executable is small because it
+links to the system's Qt libraries rather than bundling them. Actual disk and
+memory usage may vary depending on the Qt version, camera resolution, graphics
+driver, and Linux distribution.
+
 ## Install the build dependencies
 
 ```sh
@@ -31,6 +39,10 @@ make
 You can also build and launch it in one step with `make run`.
 
 ## Build a portable AppImage
+
+For a portable, self-contained version, build an AppImage. It requires more
+disk space than the regular executable because it includes the required Qt
+libraries and plugins.
 
 ```sh
 make appimage
